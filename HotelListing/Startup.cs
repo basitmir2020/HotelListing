@@ -33,8 +33,12 @@ namespace HotelListing
         {
 
             services.AddDbContext<AppDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("SqlConnection"))
+                options.UseSqlServer(Configuration
+                .GetConnectionString("SqlConnection"))
             );
+
+            services.AddAuthentication();
+            services.ConfigureIdentity();
 
             services.AddCors(o =>
             {
