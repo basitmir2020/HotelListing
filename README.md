@@ -13,3 +13,13 @@ I have implemented  the following libraries : -
 
 # Folder Structure
 ![alt text](https://github.com/basitmir2020/HotelListing/blob/master/HotelListing/folderStructure.png?raw=true)
+
+# Edit Section
+You have to add your database string here
+```
+{
+	"ConnectionStrings": {
+		"DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=_CHANGE_ME;Trusted_Connection=True;MultipleActiveResultSets=true"
+	}
+}
+```
