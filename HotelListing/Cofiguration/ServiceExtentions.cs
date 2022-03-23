@@ -1,7 +1,10 @@
 ﻿using HotelListing.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace HotelListing.Cofiguration
 {
@@ -18,14 +21,30 @@ namespace HotelListing.Cofiguration
                 .AddDefaultTokenProviders();
         }
 
-        /*public static void ConfigureJWT(this IServiceCollection service,IConfiguration configuration)
+        public static void ConfigureJWT(this IServiceCollection service, IConfiguration configuration)
         {
-            var jwtSettings = configuration.GetSection("JWT");
-            var key = jwtSettings.Key;
+            var jwtSettings = configuration.GetSection("Jwt");
+            var key = jwtSettings.GetSection("Key").Value;
             service.AddAuthentication(options =>
             {
-                *//*options.DefaultAuthenticateScheme = JwtBearerDefaults*//*
-            });
-        }*/
+                options.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(o =>
+                {
+                    o.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSettings.GetSection("Issuer").Value,
+                        ValidAudience = jwtSettings.GetSection("Audience").Value,
+                        IssuerSigningKey = new 
+                        SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                    };
+                });   
+        }
     }
 }
