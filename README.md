@@ -15,7 +15,7 @@ I have implemented  the following libraries : -
 ![alt text](https://github.com/basitmir2020/HotelListing/blob/master/HotelListing/folderStructure.png?raw=true)
 
 # Edit Section
-You have to add your database string here
+You have to add your database string here in appsettings.json
 ```
 {
 	"ConnectionStrings": {
